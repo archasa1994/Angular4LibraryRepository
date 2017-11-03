@@ -14,6 +14,7 @@ var http_1 = require("@angular/http");
 var test_module_1 = require("./test.module");
 var app_router_1 = require("./app.router");
 var auth_guard_1 = require("./_guards/auth.guard");
+//import { SimpleNotificationsModule } from 'angular2-notifications'
 var app_component_1 = require("./app.component");
 var employee_component_1 = require("./employee/employee.component");
 var employeeList_component_1 = require("./employee/employeeList.component");
