@@ -6,7 +6,7 @@ import { HttpModule } from '@angular/http';
 import { TestModule } from './test.module';
 import { routes } from './app.router';
 import { AuthGuard } from './_guards/auth.guard'
-//import { SimpleNotificationsModule } from 'angular2-notifications'
+import { SimpleNotificationsModule } from 'angular2-notifications'
 
 import { AppComponent } from './app.component';
 import { EmployeeComponent } from './employee/employee.component'
