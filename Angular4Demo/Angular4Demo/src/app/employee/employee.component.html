@@ -1,0 +1,93 @@
+﻿<head>
+    <style>
+        /*input.btn {
+            font-weight: bold;
+            background-color: sandybrown;
+            border-color: bisque;
+            color: black;
+        }*/
+    </style>
+</head>
+
+<div class="container col-lg-6">
+    <table *ngIf="employee" class="table table-responsive">
+        <thead>
+            <tr>
+                <th colspan="2">
+                    <span style="font-size: x-large">Employee Details</span> 
+                    <img src="/images/edit.png" (click)="editEmployee(employee)" title="Edit" style="float:right" />&nbsp;&nbsp;
+                    <!--<img src="/images/deleteUser.png" (click)="deleteEmployee(employee)" title="Delete" style="float:right"/>&nbsp;&nbsp;-->
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="font-size:large">Employee Code</td>
+                <td>{{employee.code}}</td>
+            </tr>
+            <tr>
+                <td style="font-size:large">Name</td>
+                <td>{{employee.name}}</td>
+            </tr>
+            <tr>
+                <td style="font-size:large">Gender</td>
+                <td>{{employee.gender}}</td>
+            </tr>
+            <tr>
+                <td style="font-size:large">Annual Salary</td>
+                <td>{{employee.annualSalary | currency:'USD':true:'1.3-3'}}</td>
+            </tr>
+            <tr>
+                <td style="font-size:large">Date of Birth</td>
+                <td>{{employee.dateOfBirth | date:'MM/dd/yyyy'}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <div *ngIf="!employee">
+        {{statusMessage}}
+    </div><br />
+    <input type="button" class="btn" value="Back to Employees List" routerLink="../">
+</div>
+<div *ngIf="isEdit" class="container col-lg-6" style="padding:0 10%">
+    <h3>Edit Employee</h3>
+    <h4 style="color:red" *ngIf="isSubmitted && (changeName.value == '' || changeSalary.value == '' || changeDOB.value == '')">*All inputs fields are required!</h4>
+    <label>Employee Code:</label>
+    <input type="text" value="{{employee.code}}" disabled class="form-control" #changeCode/>
+    <label>Name:</label>
+    <input type="text" value="{{employee.name}}" [ngModel]="employee.name" class="form-control" #changeName/>
+    <label>Gender:</label>
+    <!--<input type="text" value="{{employee.gender}}" class="form-control" [ngModel]="employee.gender" #changeGender/>-->
+    <select class="form-control" [ngModel]="employee.gender" #changeGender>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+    </select><br />
+    <label>Annual Salary:</label>
+    <input type="number" value="{{employee.annualSalary}}" [ngModel]="employee.annualSalary" class="form-control" #changeSalary/>
+    <label>Date of Birth:</label>
+    <input type="text" placeholder="Enter date of birth in MM/DD/YYYY format" value="{{employee.dateOfBirth | date:'MM/dd/yyyy'}}" [ngModel]="employee.dateOfBirth | date:'MM/dd/yyyy'" class="form-control" #changeDOB/><br />
+    <input type="button" class="btn" value="Submit" (click)="editEmployee(changeCode.value, changeName.value, changeGender.value, changeSalary.value, changeDOB.value)" style="width:30%"/> 
+    <input type="button" class="btn" value="Cancel" (click)="cancelEdit()" style="width:30%; margin-left:10px" /> 
+</div>
+
+
+<!--<table>
+    <tr>
+        <td>First Name</td>
+        <td>{{firstName}}</td>
+    </tr>
+    <tr>
+        <td>Last Name</td>
+        <td>{{lastName}}</td>
+    </tr>
+    <tr *ngIf="showDetails">
+        <td>Age</td>
+        <td>{{age}}</td>
+    </tr>
+    <tr *ngIf="showDetails">
+        <td>Gender</td>
+        <td>{{gender}}</td>
+    </tr>
+</table><br />
+<button (click)="toggleDetails()">{{showDetails ? 'Hide' : 'Show'}} Details</button>
+Name: <input [value]="firstName" (input)="firstName=$event.target.value"/>
+Last Name: <input [(ngModel)]="lastName"/>-->

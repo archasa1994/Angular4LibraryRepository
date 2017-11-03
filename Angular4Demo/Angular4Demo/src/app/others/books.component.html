@@ -1,0 +1,39 @@
+﻿<h1>Books Details</h1><hr />
+<table class="table table-responsive">
+        <thead>
+            <tr>
+                <td>
+                    Book Name
+                </td>
+                <td>
+                    Author
+                </td>
+                <td>
+                    Category
+                </td>
+                <td>
+                    Shelf
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let book of books">
+                <td>{{book.bookName}}</td>
+                <td>{{book.author}}</td>
+                <td>{{book.category}}</td>
+                <td>{{book.shelf}}</td>
+            </tr>
+            <tr *ngIf="!books">
+                <td colspan="4">
+                    Loading...Please wait..
+                </td>                
+            </tr>
+            <tr *ngIf="books && books.length == 0">
+                <td colspan="4">
+                    No books to display
+                </td>
+            </tr>
+        </tbody>
+    </table>
+   <input type="button" value="New Book" class="btn" (click)="addNewBook()" [disabled]="isDisabled"/>&nbsp;&nbsp;&nbsp;
+   <input type="button" class="btn" value="Back" routerLink="../" />

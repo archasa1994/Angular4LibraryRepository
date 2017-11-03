@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EmployeeDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="BookCategories">
+    <Key>
+      <PropertyRef Name="CategoryID" />
+    </Key>
+    <Property Name="CategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CategoryName" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Books">
+    <Key>
+      <PropertyRef Name="BookID" />
+    </Key>
+    <Property Name="BookID" Type="int" Nullable="false" />
+    <Property Name="BookName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Author" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CategoryID" Type="int" Nullable="false" />
+    <Property Name="ShelfID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DailyBookIssues">
+    <Key>
+      <PropertyRef Name="UserID" />
+      <PropertyRef Name="BookID" />
+      <PropertyRef Name="IssueDate" />
+    </Key>
+    <Property Name="UserID" Type="int" Nullable="false" />
+    <Property Name="BookID" Type="int" Nullable="false" />
+    <Property Name="IssueDate" Type="datetime" Nullable="false" />
+    <Property Name="IsFine" Type="bit" Nullable="false" />
+    <Property Name="Fine" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="Returned" Type="bit" Nullable="false" />
+    <Property Name="ReturnDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Employees">
+    <Key>
+      <PropertyRef Name="code" />
+    </Key>
+    <Property Name="code" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="50" />
+    <Property Name="gender" Type="nvarchar" MaxLength="50" />
+    <Property Name="annualSalary" Type="decimal" Precision="18" Scale="3" />
+    <Property Name="dateOfBirth" Type="datetime" />
+    <Property Name="password" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ShelfCategory">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CategoryId" Type="int" Nullable="false" />
+    <Property Name="ShelfId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ShelfDetails">
+    <Key>
+      <PropertyRef Name="ShelfID" />
+    </Key>
+    <Property Name="ShelfID" Type="int" Nullable="false" />
+    <Property Name="ShelfCapacity" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Fine" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__ShelfCate__Categ__412EB0B6">
+    <End Role="BookCategories" Type="Self.BookCategories" Multiplicity="1" />
+    <End Role="ShelfCategory" Type="Self.ShelfCategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BookCategories">
+        <PropertyRef Name="CategoryID" />
+      </Principal>
+      <Dependent Role="ShelfCategory">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ShelfCate__Shelf__4222D4EF">
+    <End Role="ShelfDetails" Type="Self.ShelfDetails" Multiplicity="1" />
+    <End Role="ShelfCategory" Type="Self.ShelfCategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ShelfDetails">
+        <PropertyRef Name="ShelfID" />
+      </Principal>
+      <Dependent Role="ShelfCategory">
+        <PropertyRef Name="ShelfId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_Books_dbo_BookCategories_CategoryID">
+    <End Role="BookCategories" Type="Self.BookCategories" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Books" Type="Self.Books" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BookCategories">
+        <PropertyRef Name="CategoryID" />
+      </Principal>
+      <Dependent Role="Books">
+        <PropertyRef Name="CategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_Books_dbo_ShelfDetails_ShelfID">
+    <End Role="ShelfDetails" Type="Self.ShelfDetails" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Books" Type="Self.Books" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ShelfDetails">
+        <PropertyRef Name="ShelfID" />
+      </Principal>
+      <Dependent Role="Books">
+        <PropertyRef Name="ShelfID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_DailyBookIssues_dbo_Books_BookID">
+    <End Role="Books" Type="Self.Books" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="DailyBookIssues" Type="Self.DailyBookIssues" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Books">
+        <PropertyRef Name="BookID" />
+      </Principal>
+      <Dependent Role="DailyBookIssues">
+        <PropertyRef Name="BookID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_DailyBookIssues_dbo_Users_UserID">
+    <End Role="Users" Type="Self.Users" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="DailyBookIssues" Type="Self.DailyBookIssues" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="DailyBookIssues">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="EmployeeDBModelStoreContainer">
+    <EntitySet Name="BookCategories" EntityType="Self.BookCategories" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Books" EntityType="Self.Books" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DailyBookIssues" EntityType="Self.DailyBookIssues" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ShelfCategory" EntityType="Self.ShelfCategory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ShelfDetails" EntityType="Self.ShelfDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__ShelfCate__Categ__412EB0B6" Association="Self.FK__ShelfCate__Categ__412EB0B6">
+      <End Role="BookCategories" EntitySet="BookCategories" />
+      <End Role="ShelfCategory" EntitySet="ShelfCategory" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ShelfCate__Shelf__4222D4EF" Association="Self.FK__ShelfCate__Shelf__4222D4EF">
+      <End Role="ShelfDetails" EntitySet="ShelfDetails" />
+      <End Role="ShelfCategory" EntitySet="ShelfCategory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_Books_dbo_BookCategories_CategoryID" Association="Self.FK_dbo_Books_dbo_BookCategories_CategoryID">
+      <End Role="BookCategories" EntitySet="BookCategories" />
+      <End Role="Books" EntitySet="Books" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_Books_dbo_ShelfDetails_ShelfID" Association="Self.FK_dbo_Books_dbo_ShelfDetails_ShelfID">
+      <End Role="ShelfDetails" EntitySet="ShelfDetails" />
+      <End Role="Books" EntitySet="Books" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_DailyBookIssues_dbo_Books_BookID" Association="Self.FK_dbo_DailyBookIssues_dbo_Books_BookID">
+      <End Role="Books" EntitySet="Books" />
+      <End Role="DailyBookIssues" EntitySet="DailyBookIssues" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_DailyBookIssues_dbo_Users_UserID" Association="Self.FK_dbo_DailyBookIssues_dbo_Users_UserID">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="DailyBookIssues" EntitySet="DailyBookIssues" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

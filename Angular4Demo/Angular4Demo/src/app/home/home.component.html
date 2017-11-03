@@ -1,0 +1,24 @@
+﻿<div style="padding:5px">
+    <ul class="nav nav-tabs" style="background-color:bisque; font-size:initial">
+        <li routerLinkActive="active">
+            <a routerLink="about" style="color:black; font-weight:bold; font-size:large">About</a>
+        </li>
+        <li routerLinkActive="active">
+            <a style="color:black;font-weight:bold;font-size:large" routerLink="employees">Employees</a>
+        </li>
+        <li routerLinkActive="active">
+            <a style="color:black;font-weight:bold;font-size:large" routerLink="users">Users</a>
+        </li>
+        <li routerLinkActive="active" style="float:right">
+            <span style="font-size: large;font-weight:bold">Welcome {{user}},</span>&nbsp;&nbsp;<img src="../../../images/logout.png" (click)="logout()" title="Logout" alt="Logout"/>
+        </li>
+    </ul>
+    <br />    
+    <!--<div class="row">
+        <div class="col-md-8 col-md-push-2">
+            <alert></alert>
+        </div>
+    </div>-->    
+    <router-outlet></router-outlet>
+</div>
+<sjs-spinner [radius]="25" [lines]="15" [width]="8" [length]="15" [opacity]="0.1" [shadow]="true"></sjs-spinner>

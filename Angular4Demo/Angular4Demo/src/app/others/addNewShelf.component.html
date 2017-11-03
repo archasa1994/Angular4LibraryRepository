@@ -1,0 +1,26 @@
+﻿<head>
+    <style>
+        /*input.btn {            
+            font-weight: bold;
+            background-color: sandybrown;
+            border-color: bisque;
+            color: black;
+        }*/
+    </style>
+</head>
+<div>
+    <h4 style="color:red" *ngIf="isSubmitted && (category.value == 0 || shelfCapacity === undefined)">*All input fields are required!</h4>
+    <div class="form-group">
+        <label for="categoryId" id="categoryLabel">Category</label>
+        <select class="form-control" name="categoryId" #category>
+            <option [value]="0">--Select Category--</option>
+            <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
+        </select>
+    </div>    
+    <div class="form-group">
+        <label for="shelfCapacity">Shelf Capacity</label>
+        <input type="number" name="shelfCapacity" class="form-control" placeholder="Enter Shelf Capacity" [(ngModel)]="shelfCapacity"/>
+    </div><br />
+    <input type="button" class="btn" value="Add Shelf" (click)="addNewShelf(category.value)"/>&nbsp;&nbsp;&nbsp;
+    <input type="button" class="btn" value="Cancel" (click)="cancel()"/>
+</div>

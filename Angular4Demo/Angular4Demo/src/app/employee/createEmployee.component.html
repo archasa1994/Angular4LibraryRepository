@@ -1,0 +1,34 @@
+﻿<head>    
+	<style>
+        /*input.btn{
+            font-weight: bold;
+            background-color: sandybrown;
+            border-color: bisque;
+            color: black;
+        }*/         
+    </style>
+</head>
+   
+    <div style="background-color:bisque;padding:0px 10%">
+        <h3 style="padding-top:0px">Add New Employee</h3>
+        <h4 style="color:red" *ngIf="isSubmitted && (name.value == '' || salary.value == '' || dob.value == '' || password.value == '')">*All inputs fields are required!</h4>
+        <label>Name:</label>
+        <input type="text" placeholder="Enter name of the Employee" class="form-control" #name/><br />
+        <label>Password:</label>
+        <input type="password" placeholder="Enter password" class="form-control" #password /><br />
+        <label>Gender:</label>
+        <!--<input type="text"  class="form-control" (ngModel)="newEmployee.gender" #gender [attr.required]="true" />-->
+        <select class="form-control" #gender>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+        </select><br />
+        <label>Annual Salary:</label>
+        <input type="number"  class="form-control" placeholder="Enter salary" (ngModel)="newEmployee.annualSalary" #salary/><br />
+        <label>Date of Birth:</label>
+        <input type="date" class="form-control" (ngModel)="newEmployee.dateOfBirth" #dob/><br />
+        <input type="button" value="Add Employee" class="btn"
+                (click)="addNewEmployee(name.value, password.value, gender.value, salary.value, dob.value)"/>
+        <input type="button" class="btn" value="Cancel"
+               (click)="onBackButtonClick()">
+    </div>
+

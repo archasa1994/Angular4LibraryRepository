@@ -1,0 +1,41 @@
+﻿<head>
+    <style>
+        /*button, input.btn{
+            font-weight: bold;
+            background-color: sandybrown;
+            border-color: bisque;
+            color: black;
+        }*/
+    </style>
+</head>
+<div class="col-md-4">
+    <h3>Add New Book</h3><hr />
+    <h4 style="color:red" *ngIf="isSubmitted && (addNewBookForm.value.bookName === undefined || addNewBookForm.value.author === undefined || category.value == 0 || shelf.value == 0)">*All input fields are required!</h4>
+    <form #addNewBookForm="ngForm" (ngSubmit)="addNewBook(addNewBookForm, category.value, shelf.value)">
+        <div class="form-group">
+            <label for="categoryId">Category</label>
+            <select class="form-control" name="categoryId" id="categoryId" (change)="loadShelfs(category.value)" #category>
+                <option [value]="0">--Select Category--</option>
+                <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="shelfId">Shelf</label>
+            <select class="form-control" name="shelfId" id="shelfId" #shelf>
+                <option [value]="0">--Select Shelf--</option>
+                <option *ngFor="let shelf of shelfs" [value]="shelf.id">{{shelf.name}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="bookName">Book Name</label>
+            <input type="text" class="form-control" name="bookName" placeholder="Enter Book Name" [(ngModel)]="bookName" />
+        </div>
+        <div class="form-group">
+            <label for="author">Author</label>
+            <input type="text" class="form-control" name="author" placeholder="Enter Author" [(ngModel)]="author" />
+        </div><br />
+        <input type="submit" class="btn" [disabled]="!addNewBookForm.form.valid" value="Add Book" />&nbsp;&nbsp;&nbsp;
+        <!--<button type="submit" [disabled]="!addNewBookForm.form.valid" class="btn">Add Book</button>&nbsp;&nbsp;&nbsp;-->
+        <input type="button" class="btn" (click)="cancel()" value="Cancel" />
+    </form>    
+</div>

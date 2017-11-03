@@ -1,0 +1,12 @@
+﻿<div class="col-lg-4 col-lg-push-4 login-container">
+    <h2 style="text-align:center">Login</h2>
+    <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+        <div class="form-group">
+            <label for="userName" id="userName">User Name: </label>
+            <input type="text" name="userName" class="form-control" [(ngModel)]="userName" required #name="ngModel" />
+            <label for="password" id="password">Password: </label>
+            <input type="password" name="password" class="form-control" [(ngModel)]="password" required #pwd="ngModel" /><br />
+            <button type="submit" [disabled]="!loginForm.form.valid" class="btn">Login</button>
+        </div>
+    </form>
+</div>  

@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html>
+<body style="height:100vh">
+    <div class="jumbotron title">
+        <h1 class="libraryTitle">Library Management System</h1>
+    </div>
+    <div class="row" style="margin-top:10px;">
+        <div class="col-md-8 col-md-push-2">
+            <alert></alert>
+        </div>
+    </div>
+    <router-outlet></router-outlet>
+    <!--<div *ngIf="isLoggedIn" style="padding:5px">
+        <ul class="nav nav-tabs" style="background-color:cadetblue">
+            <li routerLinkActive="active">
+                <a routerLink="createEmployee" style="color:black">Add</a>
+            </li>
+            <li routerLinkActive="active">
+                <a routerLink="employees" style="color:black">Employees</a>
+            </li>
+            <li style="float:right">
+                <img src="../../images/logout.png" alt="Logout" title="Logout" (click)="logout()"/>
+            </li>
+        </ul>
+        <br />        
+    </div>  
+    <router-outlet></router-outlet>    
+    <sjs-spinner [radius]="25" [lines]="15" [width]="8" [length]="15" [opacity]="0.1" [shadow]="true"></sjs-spinner>-->
+    <!--<div class="container input-group">
+        <button class="btn btn-primary" (click)="spin($event)">Spin for</button><br />
+        <input id="spinTimeout" name="spinTimeout" type="number" min="1" max="10" class="form-control" [(ngModel)]="spinTimeout"/>
+        <label for="spinTimeout">seconds</label>
+    </div>-->   
+</body>
+</html>
+

@@ -1,0 +1,52 @@
+﻿<head>
+    <style>
+        /*table, tr, td {
+            border-bottom: 1px solid white;
+            border-collapse: collapse;
+            font-weight: bold;
+        }*/
+
+        #categoryLabel {
+            font-weight: bold;
+            font-size: x-large;
+        }
+
+        #addShelfbtn, #backBtn {
+            float: right;            
+        }
+    </style>
+</head>
+<h1>Shelf Details</h1><hr />
+<div class="col-md-4">
+    <label for="categoryId" id="categoryLabel">Category</label><input type="button" class="btn" value="Add Shelf" id="addShelfbtn" (click)="enableAddShelf()"/><br />
+    <select class="form-control" name="categoryId" (change)="getShelfsByCategory(category.value)" #category>
+        <option [value]="0">--Select Category--</option>
+        <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
+    </select><br />
+    <table class="table table-responsive" *ngIf="shelfs && category.value != 0">
+        <thead>
+            <tr>
+                <td>
+                    Shelf Id
+                </td>
+                <td>
+                    Capacity
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let shelf of shelfs">
+                <td>{{shelf.id}}</td>
+                <td>{{shelf.capacity}}</td>
+            </tr>
+            <tr *ngIf="shelfs && shelfs.length == 0">
+                <td colspan="2">No Shelfs to display</td>
+            </tr>
+        </tbody>
+    </table>
+    <input type="button" class="btn" value="Back" routerLink="../" id="backBtn" />
+</div>
+<div class="col-md-6" style="float:right; padding-right:10%">
+    <add-shelf *ngIf="isAddNewShelf" (newShelfAdded)="newShelfAdded()" (cancelAddShelf)="cancel()"></add-shelf>
+    <!--<router-outlet></router-outlet>-->    
+</div>

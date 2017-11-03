@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EmployeeDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="EmployeeDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Employees" EntityType="EmployeeDBModel.Employees" />
+    <EntitySet Name="BookCategories" EntityType="EmployeeDBModel.BookCategories" />
+    <EntitySet Name="Books" EntityType="EmployeeDBModel.Books" />
+    <EntitySet Name="DailyBookIssues" EntityType="EmployeeDBModel.DailyBookIssues" />
+    <EntitySet Name="ShelfDetails" EntityType="EmployeeDBModel.ShelfDetails" />
+    <EntitySet Name="Users" EntityType="EmployeeDBModel.Users" />
+    <AssociationSet Name="FK_dbo_Books_dbo_BookCategories_CategoryID" Association="EmployeeDBModel.FK_dbo_Books_dbo_BookCategories_CategoryID">
+      <End Role="BookCategories" EntitySet="BookCategories" />
+      <End Role="Books" EntitySet="Books" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_Books_dbo_ShelfDetails_ShelfID" Association="EmployeeDBModel.FK_dbo_Books_dbo_ShelfDetails_ShelfID">
+      <End Role="ShelfDetails" EntitySet="ShelfDetails" />
+      <End Role="Books" EntitySet="Books" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_DailyBookIssues_dbo_Books_BookID" Association="EmployeeDBModel.FK_dbo_DailyBookIssues_dbo_Books_BookID">
+      <End Role="Books" EntitySet="Books" />
+      <End Role="DailyBookIssues" EntitySet="DailyBookIssues" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_DailyBookIssues_dbo_Users_UserID" Association="EmployeeDBModel.FK_dbo_DailyBookIssues_dbo_Users_UserID">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="DailyBookIssues" EntitySet="DailyBookIssues" />
+    </AssociationSet>
+    <EntitySet Name="ShelfCategory" EntityType="EmployeeDBModel.ShelfCategory" />
+    <AssociationSet Name="FK__ShelfCate__Categ__412EB0B6" Association="EmployeeDBModel.FK__ShelfCate__Categ__412EB0B6">
+      <End Role="BookCategories" EntitySet="BookCategories" />
+      <End Role="ShelfCategory" EntitySet="ShelfCategory" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ShelfCate__Shelf__4222D4EF" Association="EmployeeDBModel.FK__ShelfCate__Shelf__4222D4EF">
+      <End Role="ShelfDetails" EntitySet="ShelfDetails" />
+      <End Role="ShelfCategory" EntitySet="ShelfCategory" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Employees">
+    <Key>
+      <PropertyRef Name="code" />
+    </Key>
+    <Property Name="code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="gender" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="annualSalary" Type="Decimal" Precision="18" Scale="3" />
+    <Property Name="dateOfBirth" Type="DateTime" Precision="3" />
+    <Property Name="password" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="BookCategories">
+    <Key>
+      <PropertyRef Name="CategoryID" />
+    </Key>
+    <Property Name="CategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CategoryName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Books" Relationship="EmployeeDBModel.FK_dbo_Books_dbo_BookCategories_CategoryID" FromRole="BookCategories" ToRole="Books" />
+    <NavigationProperty Name="ShelfCategory" Relationship="EmployeeDBModel.FK__ShelfCate__Categ__412EB0B6" FromRole="BookCategories" ToRole="ShelfCategory" />
+  </EntityType>
+  <EntityType Name="Books">
+    <Key>
+      <PropertyRef Name="BookID" />
+    </Key>
+    <Property Name="BookID" Type="Int32" Nullable="false" />
+    <Property Name="BookName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Author" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CategoryID" Type="Int32" Nullable="false" />
+    <Property Name="ShelfID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="BookCategories" Relationship="EmployeeDBModel.FK_dbo_Books_dbo_BookCategories_CategoryID" FromRole="Books" ToRole="BookCategories" />
+    <NavigationProperty Name="ShelfDetails" Relationship="EmployeeDBModel.FK_dbo_Books_dbo_ShelfDetails_ShelfID" FromRole="Books" ToRole="ShelfDetails" />
+    <NavigationProperty Name="DailyBookIssues" Relationship="EmployeeDBModel.FK_dbo_DailyBookIssues_dbo_Books_BookID" FromRole="Books" ToRole="DailyBookIssues" />
+  </EntityType>
+  <EntityType Name="DailyBookIssues">
+    <Key>
+      <PropertyRef Name="UserID" />
+      <PropertyRef Name="BookID" />
+      <PropertyRef Name="IssueDate" />
+    </Key>
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="BookID" Type="Int32" Nullable="false" />
+    <Property Name="IssueDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IsFine" Type="Boolean" Nullable="false" />
+    <Property Name="Fine" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="Returned" Type="Boolean" Nullable="false" />
+    <Property Name="ReturnDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Books" Relationship="EmployeeDBModel.FK_dbo_DailyBookIssues_dbo_Books_BookID" FromRole="DailyBookIssues" ToRole="Books" />
+    <NavigationProperty Name="Users" Relationship="EmployeeDBModel.FK_dbo_DailyBookIssues_dbo_Users_UserID" FromRole="DailyBookIssues" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="ShelfDetails">
+    <Key>
+      <PropertyRef Name="ShelfID" />
+    </Key>
+    <Property Name="ShelfID" Type="Int32" Nullable="false" />
+    <Property Name="ShelfCapacity" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Books" Relationship="EmployeeDBModel.FK_dbo_Books_dbo_ShelfDetails_ShelfID" FromRole="ShelfDetails" ToRole="Books" />
+    <NavigationProperty Name="ShelfCategory" Relationship="EmployeeDBModel.FK__ShelfCate__Shelf__4222D4EF" FromRole="ShelfDetails" ToRole="ShelfCategory" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Fine" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="DailyBookIssues" Relationship="EmployeeDBModel.FK_dbo_DailyBookIssues_dbo_Users_UserID" FromRole="Users" ToRole="DailyBookIssues" />
+  </EntityType>
+  <Association Name="FK_dbo_Books_dbo_BookCategories_CategoryID">
+    <End Type="EmployeeDBModel.BookCategories" Role="BookCategories" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="EmployeeDBModel.Books" Role="Books" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BookCategories">
+        <PropertyRef Name="CategoryID" />
+      </Principal>
+      <Dependent Role="Books">
+        <PropertyRef Name="CategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_Books_dbo_ShelfDetails_ShelfID">
+    <End Type="EmployeeDBModel.ShelfDetails" Role="ShelfDetails" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="EmployeeDBModel.Books" Role="Books" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ShelfDetails">
+        <PropertyRef Name="ShelfID" />
+      </Principal>
+      <Dependent Role="Books">
+        <PropertyRef Name="ShelfID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_DailyBookIssues_dbo_Books_BookID">
+    <End Type="EmployeeDBModel.Books" Role="Books" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="EmployeeDBModel.DailyBookIssues" Role="DailyBookIssues" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Books">
+        <PropertyRef Name="BookID" />
+      </Principal>
+      <Dependent Role="DailyBookIssues">
+        <PropertyRef Name="BookID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_DailyBookIssues_dbo_Users_UserID">
+    <End Type="EmployeeDBModel.Users" Role="Users" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="EmployeeDBModel.DailyBookIssues" Role="DailyBookIssues" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="DailyBookIssues">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="ShelfCategory">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CategoryId" Type="Int32" Nullable="false" />
+    <Property Name="ShelfId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="BookCategories" Relationship="EmployeeDBModel.FK__ShelfCate__Categ__412EB0B6" FromRole="ShelfCategory" ToRole="BookCategories" />
+    <NavigationProperty Name="ShelfDetails" Relationship="EmployeeDBModel.FK__ShelfCate__Shelf__4222D4EF" FromRole="ShelfCategory" ToRole="ShelfDetails" />
+  </EntityType>
+  <Association Name="FK__ShelfCate__Categ__412EB0B6">
+    <End Type="EmployeeDBModel.BookCategories" Role="BookCategories" Multiplicity="1" />
+    <End Type="EmployeeDBModel.ShelfCategory" Role="ShelfCategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BookCategories">
+        <PropertyRef Name="CategoryID" />
+      </Principal>
+      <Dependent Role="ShelfCategory">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ShelfCate__Shelf__4222D4EF">
+    <End Type="EmployeeDBModel.ShelfDetails" Role="ShelfDetails" Multiplicity="1" />
+    <End Type="EmployeeDBModel.ShelfCategory" Role="ShelfCategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ShelfDetails">
+        <PropertyRef Name="ShelfID" />
+      </Principal>
+      <Dependent Role="ShelfCategory">
+        <PropertyRef Name="ShelfId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

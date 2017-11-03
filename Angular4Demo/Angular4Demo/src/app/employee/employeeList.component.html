@@ -1,0 +1,54 @@
+﻿<div class="col-md-8 col-md-push-2">
+    <h1>Employees</h1><hr />
+    <employee-count *ngIf="employees" [all]="getTotalEmployeesCount()" [male]="getMaleEmployeesCount()"
+                    [female]="getFemaleEmployeesCount()"
+                    (countRadioButtonSelectionChanged)="onEmployeeCountRadioButtonChange($event)" style="text-align:center;font-size:large;"></employee-count>&nbsp;&nbsp;&nbsp;
+    <button class="btn" (click)="createEmployee()"><img src="/images/createUser.png" style="height:35px;margin-right:5px;"/>New Employee</button>
+    <br /><br />
+    <div class="row" style="font-family:cursive">        
+            <!--<div class="col-md-8 col-md-push-2">-->
+                <table class="table table-responsive">
+                    <thead>
+                        <tr>
+                            <td>Code</td>
+                            <td>Name</td>
+                            <td>Gender</td>
+                            <td>Annual Salary</td>
+                            <td>Date of Birth</td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ng-container *ngFor="let employee of employees">
+                            <tr *ngIf="selectedEmployeeCountRadioButton=='All' ||
+                       selectedEmployeeCountRadioButton==employee.gender">
+                                <td>
+                                    <a [routerLink]="['/home/employees',employee.code]" style="color:black">{{employee.code}}</a>
+                                </td>
+                                <td>{{employee.name | employeeTitle:employee.gender}}</td>
+                                <td>{{employee.gender}}</td>
+                                <td>{{employee.annualSalary | currency:'USD':true:'1.3-3'}}</td>
+                                <td>{{employee.dateOfBirth | date: "dd/MM/yyyy"}}</td>
+                                <td><img src="/images/deleteUser.png" (click)="deleteEmployee(employee)" title="Delete"/></td>
+                            </tr>
+                            <tr *ngIf="!employees">
+                                <td colspan="5">Loading data. Please wait...</td>
+                            </tr>
+                            <tr *ngIf="employees && employees.length == 0">
+                                <td colspan="5">No employees to display</td>
+                            </tr>
+                        </ng-container>
+                    </tbody>
+                </table><br />
+                <!--<div>
+                    Colour Preference: <input type='text' [(ngModel)]='colour' [style.background]='colour' />
+                </div>-->
+            <!--</div>-->        
+      </div>
+        <div class="row">
+            <!--<div class="col-lg-6">-->
+                <create-employee *ngIf="isAddNewEmployee" (newEmployeeAdded)="newEmployeeAdded()" (cancelAddNewEmployee)="cancel()"></create-employee>
+                <!--<router-outlet></router-outlet>-->
+            <!--</div>-->
+        </div>
+    </div>

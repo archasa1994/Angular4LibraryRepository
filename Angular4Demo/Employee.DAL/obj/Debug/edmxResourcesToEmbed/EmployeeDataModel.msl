@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="EmployeeDBModelStoreContainer" CdmEntityContainer="EmployeeDBEntities">
+    <EntitySetMapping Name="Employees">
+      <EntityTypeMapping TypeName="EmployeeDBModel.Employees">
+        <MappingFragment StoreEntitySet="Employees">
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="dateOfBirth" ColumnName="dateOfBirth" />
+          <ScalarProperty Name="annualSalary" ColumnName="annualSalary" />
+          <ScalarProperty Name="gender" ColumnName="gender" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="code" ColumnName="code" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BookCategories">
+      <EntityTypeMapping TypeName="EmployeeDBModel.BookCategories">
+        <MappingFragment StoreEntitySet="BookCategories">
+          <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+          <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Books">
+      <EntityTypeMapping TypeName="EmployeeDBModel.Books">
+        <MappingFragment StoreEntitySet="Books">
+          <ScalarProperty Name="ShelfID" ColumnName="ShelfID" />
+          <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+          <ScalarProperty Name="Author" ColumnName="Author" />
+          <ScalarProperty Name="BookName" ColumnName="BookName" />
+          <ScalarProperty Name="BookID" ColumnName="BookID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DailyBookIssues">
+      <EntityTypeMapping TypeName="EmployeeDBModel.DailyBookIssues">
+        <MappingFragment StoreEntitySet="DailyBookIssues">
+          <ScalarProperty Name="ReturnDate" ColumnName="ReturnDate" />
+          <ScalarProperty Name="Returned" ColumnName="Returned" />
+          <ScalarProperty Name="Fine" ColumnName="Fine" />
+          <ScalarProperty Name="IsFine" ColumnName="IsFine" />
+          <ScalarProperty Name="IssueDate" ColumnName="IssueDate" />
+          <ScalarProperty Name="BookID" ColumnName="BookID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ShelfDetails">
+      <EntityTypeMapping TypeName="EmployeeDBModel.ShelfDetails">
+        <MappingFragment StoreEntitySet="ShelfDetails">
+          <ScalarProperty Name="ShelfCapacity" ColumnName="ShelfCapacity" />
+          <ScalarProperty Name="ShelfID" ColumnName="ShelfID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="EmployeeDBModel.Users">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Fine" ColumnName="Fine" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ShelfCategory">
+      <EntityTypeMapping TypeName="EmployeeDBModel.ShelfCategory">
+        <MappingFragment StoreEntitySet="ShelfCategory">
+          <ScalarProperty Name="ShelfId" ColumnName="ShelfId" />
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

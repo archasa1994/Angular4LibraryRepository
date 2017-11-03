@@ -1,0 +1,11 @@
+C:\Users\user\Documents\Visual Studio 2015\Projects\Angular4Demo\Employee.BusinessLayer\bin\Debug\Employee.BusinessLayer.dll
+C:\Users\user\Documents\Visual Studio 2015\Projects\Angular4Demo\Employee.BusinessLayer\bin\Debug\Employee.BusinessLayer.pdb
+C:\Users\user\Documents\Visual Studio 2015\Projects\Angular4Demo\Employee.BusinessLayer\bin\Debug\BusinessEntities.dll
+C:\Users\user\Documents\Visual Studio 2015\Projects\Angular4Demo\Employee.BusinessLayer\bin\Debug\Employee.DAL.dll
+C:\Users\user\Documents\Visual Studio 2015\Projects\Angular4Demo\Employee.BusinessLayer\bin\Debug\EntityFramework.dll
+C:\Users\user\Documents\Visual Studio 2015\Projects\Angular4Demo\Employee.BusinessLayer\bin\Debug\BusinessEntities.pdb
+C:\Users\user\Documents\Visual Studio 2015\Projects\Angular4Demo\Employee.BusinessLayer\bin\Debug\Employee.DAL.pdb
+C:\Users\user\Documents\Visual Studio 2015\Projects\Angular4Demo\Employee.BusinessLayer\bin\Debug\EntityFramework.xml
+C:\Users\user\Documents\Visual Studio 2015\Projects\Angular4Demo\Employee.BusinessLayer\obj\Debug\Employee.BusinessLayer.csprojResolveAssemblyReference.cache
+C:\Users\user\Documents\Visual Studio 2015\Projects\Angular4Demo\Employee.BusinessLayer\obj\Debug\Employee.BusinessLayer.dll
+C:\Users\user\Documents\Visual Studio 2015\Projects\Angular4Demo\Employee.BusinessLayer\obj\Debug\Employee.BusinessLayer.pdb

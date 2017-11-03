@@ -1,0 +1,38 @@
+﻿<head>
+    <style>
+        /*button, input.btn {
+            font-weight: bold;
+            background-color: sandybrown;
+            border-color: bisque;
+            color: black;
+        }*/
+    </style>
+</head>
+<h1>Book Issual</h1><hr />
+<h4 style="color:red" *ngIf="isSubmitted && (book.value == 0 || user.value == 0 || bookIssueForm.value.issueDate === null)">*All input fields are required!</h4>
+<div class="container col-md-4">
+    <form #bookIssueForm="ngForm" (ngSubmit)="bookIssue(book.value, user.value, bookIssueForm)">
+        <div class="form-group">
+            <label for="userId">User</label>
+            <select class="form-control" id="userId" required name="userId" #user>
+                <option value="0">--Select User--</option>
+                <option *ngFor="let user of users" [value]="user.id">{{user.name}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="bookId">Book</label>
+            <select class="form-control" id="bookId" required name="bookId" #book>
+                <option value="0">--Select Book--</option>
+                <option *ngFor="let book of books" [value]="book.bookId">{{book.bookName}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="issueDate">Issue Date</label>
+            <input class="form-control" type="date" [(ngModel)]="issueDate" name="issueDate" />
+        </div>
+        <input type="submit" class="btn" value="Submit" />&nbsp;&nbsp;&nbsp;
+        <!--<button type="submit" class="btn">Submit</button>&nbsp;&nbsp;&nbsp;-->
+        <input type="button" class="btn" (click)="cancel()" value="Cancel" />
+    </form>
+</div>
+

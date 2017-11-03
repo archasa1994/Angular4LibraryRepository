@@ -1,0 +1,43 @@
+﻿<head>
+    <style>
+        /*table, tr, td {
+            border-bottom: 1px solid white;
+            border-collapse: collapse;
+            font-weight: bold;
+        }*/
+        /*#backBtn{            
+            font-weight: bold;
+            background-color: sandybrown;
+            border-color: bisque;
+            color: black;
+        }*/
+    </style>
+</head>
+<h1>List of Books Issued</h1><hr/>
+<table class="table table-responsive">
+    <thead>
+        <tr>
+            <td>User ID</td>
+            <td>User Name</td>
+            <td>Email</td>
+            <td>Book ID</td>
+            <td>Book Name</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let book of booksIssued">
+            <td>{{book.UserId}}</td>
+            <td>{{book.UserName}}</td>
+            <td>{{book.Email}}</td>
+            <td>{{book.BookId}}</td>
+            <td>{{book.BookName}}</td>
+        </tr>
+        <tr *ngIf="!booksIssued">
+            <td colspan="5">Loading...Please wait</td>
+        </tr>
+        <tr *ngIf="booksIssued && booksIssued.length == 0">
+            <td colspan="5">No Books Issued</td>
+        </tr>
+    </tbody>
+</table> 
+<input type="button" class="btn" value="Back" routerLink="../" id="backBtn"/>

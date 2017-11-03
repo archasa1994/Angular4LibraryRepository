@@ -1,0 +1,35 @@
+﻿body {
+    background-color: bisque;
+}
+
+.nav-tabs>li.active>a{
+    background-color: cornsilk
+}
+
+.nav-tabs>li>a:hover{
+    background-color: azure
+}
+
+.login-container{   
+    margin-top: 10%;
+    border: 1px solid red;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+#userName, #password{
+    margin: 5px;
+}
+
+.title {
+    text-align: center;
+    color: ghostwhite;
+    margin-bottom: 0px !important;    
+    background-image: url('../../images/books-with-numbers.jpg');   
+}
+
+.libraryTitle{
+    text-shadow: 4px 4px black;
+    /*font-size: xx-large !important;
+    font-weight: bolder !important;*/
+}

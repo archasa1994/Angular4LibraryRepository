@@ -1,0 +1,68 @@
+﻿<head>
+    <style>
+        h1, hr{
+            margin-right: 40%;
+        }
+
+        /*table, tr, td {
+            border-bottom: 1px solid white;
+            font-weight: bold;
+            margin-left: 10%;
+        }*/
+
+        /*#backBtn {
+            font-weight: bold;
+            background-color: sandybrown;
+            border-color: bisque;
+            color: black;
+            margin-left: 10%;
+        }*/
+
+        dd {
+            font-size: large;
+            font-weight: bold;
+        }
+        dt{
+            font-size: x-large;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<div class="col-md-8 col-md-push-2">
+    <h1>User Details</h1><hr />
+    <dl class="dl-horizontal">
+        <dt>User Name</dt>
+        <dd>{{userDetails.UserName}}</dd>
+        <dt>Email</dt>
+        <dd>{{userDetails.Email}}</dd>
+        <dt>Fine</dt>
+        <dd>{{userDetails.Fine}}</dd>
+    </dl><br />
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <td>Book Id</td>
+                <td>Book Name</td>
+                <td>Issue Date</td>
+                <td>Return Date</td>
+                <td>Fine</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let book of userDetails.BookList">
+                <td>{{book.BookId}}</td>
+                <td>{{book.BookName}}</td>
+                <td>{{book.IssueDate | date: "dd/MM/yyyy"}}</td>
+                <td>{{book.ReturnDate | date: "dd/MM/yyyy"}}</td>
+                <td>{{book.Fine}}</td>
+            </tr>
+            <tr *ngIf="!userDetails">
+                <td colspan="5">Loading...Please wait.</td>
+            </tr>
+            <tr *ngIf="userDetails && userDetails.BookList?.length == 0">
+                <td colspan="5">No Books Issued</td>
+            </tr>
+        </tbody>
+    </table>
+    <input type="button" class="btn" value="Back" routerLink="../" id="backBtn" />
+</div>

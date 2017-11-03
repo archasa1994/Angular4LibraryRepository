@@ -1,0 +1,57 @@
+﻿<head>
+    <style>
+        /*table, tr, td {
+            border-bottom: 1px solid white;
+            font-weight: bold;
+        }*/
+
+        /*#backBtn, #addBtn {
+            font-weight: bold;
+            background-color: sandybrown;
+            border-color: bisque;
+            color: black;
+        }*/        
+    </style>
+</head>
+<div>
+    <div class="row">
+        <div class="col-md-8 col-md-push-2">
+            <div class="row">
+                <h1 class="col-md-2">Users</h1>               
+                <button class="btn col-md-2" (click)="addUser()" id="addBtn" style="margin-top:10px;"><img src="/images/createUser.png" style="height:35px;margin-right:5px" />New User</button>
+            </div>            
+            <hr />
+            <table class="table table-responsive">
+                <thead>
+                    <tr>
+                        <td>User ID</td>
+                        <td>User Name</td>
+                        <td>Email</td>
+                        <td>Fine</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let user of users">
+                        <td>
+                            <a [routerLink]="['/home/users',user.UserId]" style="color:#333">{{user.UserId}}</a>
+                        </td>
+                        <td><a [routerLink]="['/home/users',user.UserId]" style="color:#333">{{user.UserName}}</a></td>
+                        <td>{{user.Email}}</td>
+                        <td>{{user.Fine}}</td>
+                    </tr>
+                    <tr *ngIf="!users">
+                        <td colspan="4">Loading...Please wait</td>
+                    </tr>
+                    <tr *ngIf="users && users.length == 0">
+                        <td colspan="4">No Users</td>
+                    </tr>
+                </tbody>
+            </table>
+            <!--<input type="button" class="btn" value="New User" id="addBtn" (click)="addUser()" />-->
+        </div>
+    </div>
+    <div class="row col-md-push-2 col-md-8">
+        <add-user *ngIf="isClicked" (newUserAdded)="ngOnInit()" (cancelClicked)="cancel()"></add-user>
+        <!--<router-outlet></router-outlet>-->
+    </div>
+</div>
