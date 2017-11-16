@@ -12,10 +12,41 @@ require("rxjs/add/operator/startWith");
 var BehaviorSubject_1 = require("rxjs/BehaviorSubject");
 var AppGlobals = /** @class */ (function () {
     function AppGlobals() {
+        this.baseUrl = 'http://localhost:57445';
         this.isUserLoggedIn = new BehaviorSubject_1.BehaviorSubject(false);
     }
     AppGlobals.prototype.setLoginStatus = function (isLoggedIn) {
         this.isUserLoggedIn.next(isLoggedIn);
+    };
+    AppGlobals.prototype.getSuccessToast = function (message) {
+        var toastOptions = {
+            title: "Success",
+            msg: message,
+            showClose: true,
+            timeout: 3000,
+            theme: 'bootstrap'
+        };
+        return toastOptions;
+    };
+    AppGlobals.prototype.getErrorToast = function (message) {
+        var toastOptions = {
+            title: "Error",
+            msg: message,
+            showClose: true,
+            timeout: 3000,
+            theme: 'bootstrap'
+        };
+        return toastOptions;
+    };
+    AppGlobals.prototype.getFailureToast = function () {
+        var toastOptions = {
+            title: "Error",
+            msg: "Something went wrong.Please try again later!",
+            showClose: true,
+            timeout: 3000,
+            theme: 'bootstrap'
+        };
+        return toastOptions;
     };
     AppGlobals = __decorate([
         core_1.Injectable()

@@ -13,14 +13,14 @@ var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var appGlobals_1 = require("../global/appGlobals");
 var employee_service_1 = require("../employee/employee.service");
-var alert_service_1 = require("../alert/alert.service");
+var ng2_toasty_1 = require("ng2-toasty");
 var LoginComponent = /** @class */ (function () {
-    function LoginComponent(_router, _appGlobals, _activatedRoute, _employeeService, _alertService) {
+    function LoginComponent(_router, _appGlobal, _activatedRoute, _employeeService, _toastyService) {
         this._router = _router;
-        this._appGlobals = _appGlobals;
+        this._appGlobal = _appGlobal;
         this._activatedRoute = _activatedRoute;
         this._employeeService = _employeeService;
-        this._alertService = _alertService;
+        this._toastyService = _toastyService;
     }
     LoginComponent.prototype.onSubmit = function () {
         var _this = this;
@@ -32,10 +32,12 @@ var LoginComponent = /** @class */ (function () {
                 _this._router.navigate([url ? url : '/home/about/books']);
             }
             else {
-                _this._alertService.error("Invalid Username or Password!");
+                _this._toastyService.error(_this._appGlobal.getErrorToast("Invalid Username or Password!"));
+                //this._toastyService.error("Invalid Username or Password!");
             }
         }, function (error) {
-            _this._alertService.error("Something went wrong! Please try again later.");
+            _this._toastyService.error(_this._appGlobal.getFailureToast());
+            //this._toastyService.error("Something went wrong! Please try again later.");
         });
     };
     LoginComponent = __decorate([
@@ -45,7 +47,7 @@ var LoginComponent = /** @class */ (function () {
             templateUrl: 'login.component.html'
         }),
         __metadata("design:paramtypes", [router_1.Router, appGlobals_1.AppGlobals, router_1.ActivatedRoute,
-            employee_service_1.EmployeeService, alert_service_1.AlertService])
+            employee_service_1.EmployeeService, ng2_toasty_1.ToastyService])
     ], LoginComponent);
     return LoginComponent;
 }());

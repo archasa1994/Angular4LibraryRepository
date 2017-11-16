@@ -8,6 +8,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/Observable/throw';
+import { AppGlobals } from '../global/appGlobals'
 
 
 // The @Injectable() decorator is used to inject other dependencies
@@ -16,20 +17,20 @@ import 'rxjs/add/Observable/throw';
 // service works exactly the same way. However, Angular recomends
 // to always use @Injectable() decorator to ensures consistency
 @Injectable()
-export class EmployeeService {    
-    constructor(private _http: Http) { }
+export class EmployeeService {
+    constructor(private _http: Http, private _appGlobal: AppGlobals) { }
 
     getEmployees(): Observable<IEmployee[]> {
 
         // To convert Observable<Response> to Observable<IEmployee[]>
         // we are using the map operator
-        return this._http.get('http://localhost:57445/api/employees/Get')
+        return this._http.get(this._appGlobal.baseUrl+'/api/employees/Get')
             .map((response: Response) => <IEmployee[]>response.json());
             //.catch(this.handleError);
     }
 
     getEmployeeByCode(empCode: string): Observable<IEmployee> {
-        return this._http.get('http://localhost:57445/api/employees/Get/' + empCode)
+        return this._http.get(this._appGlobal.baseUrl +'/api/employees/Get/' + empCode)
             .map((response: Response) => <IEmployee>response.json());
     }
 
@@ -44,7 +45,7 @@ export class EmployeeService {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
         let options = new RequestOptions({ headers: headers });
-        return this._http.post('http://localhost:57445/api/employees/Post', body, options)
+        return this._http.post(this._appGlobal.baseUrl +'/api/employees/Post', body, options)
             .map((response: Response) => <boolean>response.json());
     }
 
@@ -53,7 +54,7 @@ export class EmployeeService {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
         let options = new RequestOptions({ headers: headers });
-        return this._http.post('http://localhost:57445/api/employees/DeleteEmployee', data, options)
+        return this._http.post(this._appGlobal.baseUrl +'/api/employees/DeleteEmployee', data, options)
             .map((response: Response) => <boolean>response.json());
     }
 
@@ -63,7 +64,7 @@ export class EmployeeService {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
         let options = new RequestOptions({ headers: headers });
-        return this._http.post('http://localhost:57445/api/employees/AddNewEmployee', data, options)
+        return this._http.post(this._appGlobal.baseUrl +'/api/employees/AddNewEmployee', data, options)
             .map((response: Response) => <boolean>response.json());
     }
 
@@ -73,7 +74,7 @@ export class EmployeeService {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
         let options = new RequestOptions({ headers: headers });
-        return this._http.post('http://localhost:57445/api/employees/Login', data, options)
+        return this._http.post(this._appGlobal.baseUrl +'/api/employees/Login', data, options)
             .map((response: Response) => <boolean>response.json());
     }
 

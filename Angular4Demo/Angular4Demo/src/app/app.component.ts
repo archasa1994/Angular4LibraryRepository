@@ -5,15 +5,15 @@ import { Router } from '@angular/router'
 import { AppGlobals } from './global/appGlobals'
 
 @Component({
-    selector: 'my-app',
+    selector: 'my-app',    
     templateUrl: 'app/app.component.html',
-    styleUrls: ['app/app.component.css']
+    styleUrls: ['app/app.component.css']    
 })
 export class AppComponent {
     pageHeader: string = 'Employee Details';    
     private spinTimeout: number = 1;
     isLoggedIn: boolean;
-    
+
     constructor(private spinnerService: SpinnerService, private _router: Router, private _appGlobals: AppGlobals) {
         this._appGlobals.isUserLoggedIn.subscribe(value => this.isLoggedIn = value);
     }
@@ -26,5 +26,16 @@ export class AppComponent {
         setTimeout(() => {
             this.spinnerService.hide();
         }, timeoutMs);
-    }       
+    } 
+
+    public options = {
+        timeOut: 5000,
+        lastOnBottom: true
+    };
+
+    create() {
+        alert("success");
+        //this._service.success('success', 'success');
+        //this._service.success('bla', 'example')
+    }      
 }

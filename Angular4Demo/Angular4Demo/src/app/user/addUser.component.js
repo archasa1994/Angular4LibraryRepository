@@ -13,10 +13,14 @@ var core_1 = require("@angular/core");
 var user_1 = require("./user");
 var user_service_1 = require("./user.service");
 var alert_service_1 = require("../alert/alert.service");
+var ng2_toasty_1 = require("ng2-toasty");
+var appGlobals_1 = require("../global/appGlobals");
 var AddUserComponent = /** @class */ (function () {
-    function AddUserComponent(_userService, _alertService) {
+    function AddUserComponent(_userService, _alertService, _toastyService, _appGlobal) {
         this._userService = _userService;
         this._alertService = _alertService;
+        this._toastyService = _toastyService;
+        this._appGlobal = _appGlobal;
         this.user = new user_1.User;
         this.isSubmitted = false;
         this.newUserAdded = new core_1.EventEmitter();
@@ -34,14 +38,16 @@ var AddUserComponent = /** @class */ (function () {
         this._userService.addNewUser(this.user).subscribe(function (response) {
             if (response) {
                 _this.newUserAdded.emit('success');
-                _this._alertService.success('User added successfully!');
+                //this._alertService.success('User added successfully!');                
+                _this._toastyService.success(_this._appGlobal.getSuccessToast("User added successfully!"));
             }
             else {
-                _this._alertService.error('Failed to add user!');
-                //alert('Something went wrong. Please try again later!')
+                //this._alertService.error('Failed to add user!');                
+                _this._toastyService.error(_this._appGlobal.getErrorToast("Failed to Add User!"));
             }
         }, function (error) {
-            _this._alertService.error('Something went wrong. Please try again later!');
+            _this._toastyService.error(_this._appGlobal.getFailureToast());
+            //this._alertService.error('Something went wrong. Please try again later!');
         });
     };
     __decorate([
@@ -57,7 +63,7 @@ var AddUserComponent = /** @class */ (function () {
             selector: 'add-user',
             templateUrl: 'app/user/addUser.component.html'
         }),
-        __metadata("design:paramtypes", [user_service_1.UserService, alert_service_1.AlertService])
+        __metadata("design:paramtypes", [user_service_1.UserService, alert_service_1.AlertService, ng2_toasty_1.ToastyService, appGlobals_1.AppGlobals])
     ], AddUserComponent);
     return AddUserComponent;
 }());

@@ -12,13 +12,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var book_service_1 = require("./book.service");
-var alert_service_1 = require("../alert/alert.service");
+var ng2_toasty_1 = require("ng2-toasty");
+var appGlobals_1 = require("../global/appGlobals");
 var AddNewShelfComponent = /** @class */ (function () {
-    function AddNewShelfComponent(_bookService, _router, _route, _alertService) {
+    function AddNewShelfComponent(_bookService, _router, _route, _toastyService, _appGlobal) {
         this._bookService = _bookService;
         this._router = _router;
         this._route = _route;
-        this._alertService = _alertService;
+        this._toastyService = _toastyService;
+        this._appGlobal = _appGlobal;
         this.isSubmitted = false;
         this.newShelfAdded = new core_1.EventEmitter();
         this.cancelAddShelf = new core_1.EventEmitter();
@@ -35,11 +37,13 @@ var AddNewShelfComponent = /** @class */ (function () {
         }
         this._bookService.addNewShelf(category, this.shelfCapacity).subscribe(function (result) {
             _this.newShelfAdded.emit('success');
-            _this._alertService.success('Shelf added successfully!');
+            _this._toastyService.success(_this._appGlobal.getSuccessToast("Shelf added successfully!"));
+            //this._toastyService.success('Shelf added successfully!');
             //window.location.reload();            
             //this._router.navigate(["home/about/shelfs"]);           
         }, function (error) {
-            _this._alertService.error('Something went wrong. Please try again later!');
+            _this._toastyService.error(_this._appGlobal.getFailureToast());
+            //this._toastyService.error('Something went wrong. Please try again later!');
             //alert('Something went wrong! Please try again later!');
         });
     };
@@ -59,7 +63,8 @@ var AddNewShelfComponent = /** @class */ (function () {
             selector: 'add-shelf',
             templateUrl: 'app/others/addNewShelf.component.html'
         }),
-        __metadata("design:paramtypes", [book_service_1.BookService, router_1.Router, router_1.ActivatedRoute, alert_service_1.AlertService])
+        __metadata("design:paramtypes", [book_service_1.BookService, router_1.Router, router_1.ActivatedRoute,
+            ng2_toasty_1.ToastyService, appGlobals_1.AppGlobals])
     ], AddNewShelfComponent);
     return AddNewShelfComponent;
 }());

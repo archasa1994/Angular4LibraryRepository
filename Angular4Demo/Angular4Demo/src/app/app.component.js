@@ -21,6 +21,10 @@ var AppComponent = /** @class */ (function () {
         this._appGlobals = _appGlobals;
         this.pageHeader = 'Employee Details';
         this.spinTimeout = 1;
+        this.options = {
+            timeOut: 5000,
+            lastOnBottom: true
+        };
         this._appGlobals.isUserLoggedIn.subscribe(function (value) { return _this.isLoggedIn = value; });
     }
     AppComponent.prototype.spin = function (event) {
@@ -32,6 +36,11 @@ var AppComponent = /** @class */ (function () {
         setTimeout(function () {
             _this.spinnerService.hide();
         }, timeoutMs);
+    };
+    AppComponent.prototype.create = function () {
+        alert("success");
+        //this._service.success('success', 'success');
+        //this._service.success('bla', 'example')
     };
     AppComponent = __decorate([
         core_1.Component({

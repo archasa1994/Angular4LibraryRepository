@@ -5,8 +5,11 @@ import { HttpModule } from '@angular/http';
 //import { RouterModule, Routes } from '@angular/router';
 import { TestModule } from './test.module';
 import { routes } from './app.router';
-import { AuthGuard } from './_guards/auth.guard'
-import { SimpleNotificationsModule } from 'angular2-notifications'
+import { AuthGuard } from './_guards/auth.guard';
+import { ToastyModule } from 'ng2-toasty'
+//import { SimpleNotificationsModule } from 'angular4-notifications'
+//import { SimpleNotificationsComponent } from 'angular4-notifications'
+//import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 import { AppComponent } from './app.component';
 import { EmployeeComponent } from './employee/employee.component'
@@ -57,7 +60,7 @@ import { AlertService } from './alert/alert.service'
 // pass "appRoutes" constant to forRoot(appRoutes) method
 @NgModule({
     imports: [BrowserModule, FormsModule, HttpModule,
-        routes, TestModule],
+        routes, TestModule, ToastyModule.forRoot()],
     declarations: [AppComponent, EmployeeComponent, EmployeeListComponent, EmployeeTitlePipe, EmployeeCountComponent, HomeComponent,
         PageNotFoundComponent, CreateEmployeeComponent, HeroFormComponent, SpinnerComponent, LoginComponent, AboutComponent,
         BooksComponent, DailyBookIssueComponent, AddNewBookComponent, ShelfsComponent, AddNewShelfComponent, BookIssuedComponent,

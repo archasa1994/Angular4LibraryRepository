@@ -14,6 +14,10 @@ var http_1 = require("@angular/http");
 var test_module_1 = require("./test.module");
 var app_router_1 = require("./app.router");
 var auth_guard_1 = require("./_guards/auth.guard");
+var ng2_toasty_1 = require("ng2-toasty");
+//import { SimpleNotificationsModule } from 'angular4-notifications'
+//import { SimpleNotificationsComponent } from 'angular4-notifications'
+//import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 var app_component_1 = require("./app.component");
 var employee_component_1 = require("./employee/employee.component");
 var employeeList_component_1 = require("./employee/employeeList.component");
@@ -64,7 +68,7 @@ var AppModule = /** @class */ (function () {
     AppModule = __decorate([
         core_1.NgModule({
             imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, http_1.HttpModule,
-                app_router_1.routes, test_module_1.TestModule],
+                app_router_1.routes, test_module_1.TestModule, ng2_toasty_1.ToastyModule.forRoot()],
             declarations: [app_component_1.AppComponent, employee_component_1.EmployeeComponent, employeeList_component_1.EmployeeListComponent, employeeTitle_pipe_1.EmployeeTitlePipe, employeeCount_component_1.EmployeeCountComponent, home_component_1.HomeComponent,
                 pageNotFound_component_1.PageNotFoundComponent, createEmployee_component_1.CreateEmployeeComponent, hero_form_component_1.HeroFormComponent, spinner_component_1.SpinnerComponent, login_component_1.LoginComponent, about_component_1.AboutComponent,
                 books_component_1.BooksComponent, dailyBookIssue_component_1.DailyBookIssueComponent, addNewBook_component_1.AddNewBookComponent, shelfs_component_1.ShelfsComponent, addNewShelf_component_1.AddNewShelfComponent, bookIssued_component_1.BookIssuedComponent,

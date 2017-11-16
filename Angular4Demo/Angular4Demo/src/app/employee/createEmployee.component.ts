@@ -4,6 +4,8 @@ import { EmployeeService } from './employee.service';
 import { Router } from '@angular/router';
 import { SpinnerService } from '../spinner/spinner.service';
 import { AlertService } from '../alert/alert.service';
+import { ToastOptions, ToastyService } from 'ng2-toasty'
+import { AppGlobals } from '../global/appGlobals'
 
 
 @Component({
@@ -15,7 +17,7 @@ export class CreateEmployeeComponent {
 
     isSubmitted: boolean = false;
     constructor(private _employeeService: EmployeeService, private _router: Router, private _spinnerService: SpinnerService,
-        private _alertService: AlertService) { }
+        private _toastyService: ToastyService, private _appGlobal: AppGlobals) { }
 
     @Output()
     newEmployeeAdded: EventEmitter<string> = new EventEmitter<string>();
@@ -40,16 +42,25 @@ export class CreateEmployeeComponent {
                 this._spinnerService.hide();
                 if (response == true) {
                     this.newEmployeeAdded.emit('success');
-                    this._alertService.success('Employee added successfully');                                
+                    var toastOptions: ToastOptions = {
+                        title: "Success",
+                        msg: "Employee added successfully",
+                        showClose: true,
+                        timeout: 3000,
+                        theme: 'bootstrap'
+                    }
+                    this._toastyService.success(this._appGlobal.getSuccessToast("Employee added successfully!"));
+                    //this._toastyService.success('Employee added successfully');                                
                     //this._router.navigate(['/home/employees']);
                 }
-                else {
-                    this._alertService.error("Failed to add new Employee");
+                else {                    
+                    this._toastyService.error(this._appGlobal.getErrorToast("Failed to Add Employee!"));
+                    //this._toastyService.error("Failed to add new Employee");
                 }
             },
             (error) => {
-                this._spinnerService.hide();
-                this._alertService.error('Problem with the service. Please try again after sometime');
+                this._spinnerService.hide();                
+                this._toastyService.error(this._appGlobal.getFailureToast());
             });
     }
 

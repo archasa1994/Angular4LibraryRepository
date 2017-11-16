@@ -7,39 +7,41 @@ import { Http, Response, Headers, RequestOptions, RequestMethod } from '@angular
 import { Observable } from 'rxjs/Observable';
 // Import the map operator
 import 'rxjs/add/operator/map';
+import { AppGlobals } from '../global/appGlobals'
+
 
 @Injectable()
 export class BookService {
 
-    constructor(private _http: Http){}
+    constructor(private _http: Http, private _appGlobal: AppGlobals) { }
 
     getBooks(): Observable<Book[]> {        
-        return this._http.get('http://localhost:57445/api/books/GetBooks')
+        return this._http.get(this._appGlobal.baseUrl +'/api/books/GetBooks')
             .map((response: Response) => <Book[]>response.json());        
     } 
 
     getUsers(): Observable<any[]> {
-        return this._http.get('http://localhost:57445/api/books/GetUsers')
+        return this._http.get(this._appGlobal.baseUrl +'/api/books/GetUsers')
             .map((response: Response) => <any[]>response.json());
     }
 
     getCategories(): Observable<any[]> {
-        return this._http.get('http://localhost:57445/api/books/GetCategories')
+        return this._http.get(this._appGlobal.baseUrl +'/api/books/GetCategories')
             .map((response: Response) => <any[]>response.json());
     }
 
     getShelfs(id: number): Observable<any[]> {
-        return this._http.get('http://localhost:57445/api/books/GetShelfs/'+id)
+        return this._http.get(this._appGlobal.baseUrl +'/api/books/GetShelfs/'+id)
             .map((response: Response) => <any[]>response.json());
     }
 
     getShelfsByCategory(category: number): Observable<any[]> {
-        return this._http.get('http://localhost:57445/api/books/GetShelfsByCategory/' + category)
+        return this._http.get(this._appGlobal.baseUrl +'/api/books/GetShelfsByCategory/' + category)
             .map((response: Response) => <any[]>response.json());
     }
 
     getIssuedBooks(): Observable<BookIssued[]> {
-        return this._http.get('http://localhost:57445/api/books/GetIssuedBooks')
+        return this._http.get(this._appGlobal.baseUrl +'/api/books/GetIssuedBooks')
             .map((response: Response) => <BookIssued[]>response.json());
     }
 
@@ -49,7 +51,7 @@ export class BookService {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
         let options = new RequestOptions({ headers: headers });
-        return this._http.post('http://localhost:57445/api/books/BookIssue', body, options)
+        return this._http.post(this._appGlobal.baseUrl +'/api/books/BookIssue', body, options)
             .map((response: Response) => <boolean>response.json());
     } 
 
@@ -59,7 +61,7 @@ export class BookService {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
         let options = new RequestOptions({ headers: headers });
-        return this._http.post('http://localhost:57445/api/books/AddNewBook', body, options)
+        return this._http.post(this._appGlobal.baseUrl +'/api/books/AddNewBook', body, options)
             .map((response: Response) => <boolean>response.json());
     }
 
@@ -69,7 +71,7 @@ export class BookService {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
         let options = new RequestOptions({ headers: headers });
-        return this._http.post('http://localhost:57445/api/books/AddNewShelf', body, options)
+        return this._http.post(this._appGlobal.baseUrl +'/api/books/AddNewShelf', body, options)
             .map((response: Response) => <boolean>response.json());
     } 
 }

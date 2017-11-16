@@ -13,13 +13,15 @@ var core_1 = require("@angular/core");
 var employee_service_1 = require("./employee.service");
 var router_1 = require("@angular/router");
 var spinner_service_1 = require("../spinner/spinner.service");
-var alert_service_1 = require("../alert/alert.service");
+var ng2_toasty_1 = require("ng2-toasty");
+var appGlobals_1 = require("../global/appGlobals");
 var CreateEmployeeComponent = /** @class */ (function () {
-    function CreateEmployeeComponent(_employeeService, _router, _spinnerService, _alertService) {
+    function CreateEmployeeComponent(_employeeService, _router, _spinnerService, _toastyService, _appGlobal) {
         this._employeeService = _employeeService;
         this._router = _router;
         this._spinnerService = _spinnerService;
-        this._alertService = _alertService;
+        this._toastyService = _toastyService;
+        this._appGlobal = _appGlobal;
         this.isSubmitted = false;
         this.newEmployeeAdded = new core_1.EventEmitter();
         this.cancelAddNewEmployee = new core_1.EventEmitter();
@@ -41,15 +43,24 @@ var CreateEmployeeComponent = /** @class */ (function () {
             _this._spinnerService.hide();
             if (response == true) {
                 _this.newEmployeeAdded.emit('success');
-                _this._alertService.success('Employee added successfully');
+                var toastOptions = {
+                    title: "Success",
+                    msg: "Employee added successfully",
+                    showClose: true,
+                    timeout: 3000,
+                    theme: 'bootstrap'
+                };
+                _this._toastyService.success(_this._appGlobal.getSuccessToast("Employee added successfully!"));
+                //this._toastyService.success('Employee added successfully');                                
                 //this._router.navigate(['/home/employees']);
             }
             else {
-                _this._alertService.error("Failed to add new Employee");
+                _this._toastyService.error(_this._appGlobal.getErrorToast("Failed to Add Employee!"));
+                //this._toastyService.error("Failed to add new Employee");
             }
         }, function (error) {
             _this._spinnerService.hide();
-            _this._alertService.error('Problem with the service. Please try again after sometime');
+            _this._toastyService.error(_this._appGlobal.getFailureToast());
         });
     };
     __decorate([
@@ -66,7 +77,7 @@ var CreateEmployeeComponent = /** @class */ (function () {
             templateUrl: 'app/employee/createEmployee.component.html'
         }),
         __metadata("design:paramtypes", [employee_service_1.EmployeeService, router_1.Router, spinner_service_1.SpinnerService,
-            alert_service_1.AlertService])
+            ng2_toasty_1.ToastyService, appGlobals_1.AppGlobals])
     ], CreateEmployeeComponent);
     return CreateEmployeeComponent;
 }());

@@ -7,20 +7,20 @@ import { Http, Response, Headers, RequestOptions, RequestMethod } from '@angular
 import { Observable } from 'rxjs/Observable';
 // Import the map operator
 import 'rxjs/add/operator/map';
-
+import { AppGlobals } from '../global/appGlobals'
 
 @Injectable()
 export class UserService {
 
-    constructor(private _http: Http){}
+    constructor(private _http: Http, private _appGlobal: AppGlobals) { }
 
     getUsers(): Observable<User[]> {
-        return this._http.get('http://localhost:57445/api/users/GetUsers')
+        return this._http.get(this._appGlobal.baseUrl+'/api/users/GetUsers')
             .map((response: Response) => <User[]>response.json());
     }
 
     getUserDetailsById(id: number): Observable<User> {
-        return this._http.get('http://localhost:57445/api/users/GetUserDetailsById/'+ id)
+        return this._http.get(this._appGlobal.baseUrl +'/api/users/GetUserDetailsById/'+ id)
             .map((response: Response) => <User>response.json());
     }
 
@@ -30,7 +30,7 @@ export class UserService {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
         let options = new RequestOptions({ headers: headers });
-        return this._http.post('http://localhost:57445/api/users/AddNewUser', body, options)
+        return this._http.post(this._appGlobal.baseUrl +'/api/users/AddNewUser', body, options)
             .map((response: Response) => <boolean>response.json());
     }
 }

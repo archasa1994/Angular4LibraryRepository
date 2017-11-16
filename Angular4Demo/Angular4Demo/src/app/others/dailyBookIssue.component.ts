@@ -1,7 +1,9 @@
-﻿import { Component, OnInit } from '@angular/core'
-import { BookService } from './book.service'
-import { Router } from '@angular/router'
-import { AlertService } from '../alert/alert.service'
+﻿import { Component, OnInit } from '@angular/core';
+import { BookService } from './book.service';
+import { Router } from '@angular/router';
+import { AlertService } from '../alert/alert.service';
+import { ToastOptions, ToastyService } from 'ng2-toasty'
+import { AppGlobals } from '../global/appGlobals'
 
 @Component({
     templateUrl: 'app/others/dailyBookIssue.component.html',
@@ -14,7 +16,7 @@ export class DailyBookIssueComponent {
     issueDate: Date;
     isSubmitted: boolean = false;
 
-    constructor(private _bookService: BookService, private _router: Router, private _alertService: AlertService) { }
+    constructor(private _bookService: BookService, private _router: Router, private _toastyService: ToastyService, private _appGlobal: AppGlobals) { }
 
     ngOnInit() {        
         this._bookService.getBooks().subscribe((result) => {
@@ -55,18 +57,20 @@ export class DailyBookIssueComponent {
             return;
         }
         this._bookService.bookIssue(bookId, userId, book).subscribe((response) => {
-            if (response) {
-                this._alertService.success('Book Issued successfully!');
+            if (response) {                
+                this._toastyService.success(this._appGlobal.getSuccessToast("Book Issued successfully!"));
                 this.ngOnInit();
                 //window.location.reload();
             }
-            else {
-                this._alertService.error('Failed to issue book!');
+            else {                
+                this._toastyService.error(this._appGlobal.getErrorToast("Failed to Issue Book!"));
+                //this._toastyService.error('Failed to issue book!');
                 //alert('Error in service. Please try again later.')
             }
         },
             (error) => {
-                this._alertService.error('Something went wrong. Please try again later!');
+                this._toastyService.error(this._appGlobal.getFailureToast()); 
+                //this._toastyService.error('Something went wrong. Please try again later!');
                 //alert('Error in service. Please try again later.')
             });
         }

@@ -2,7 +2,8 @@
 import { Router, ActivatedRoute } from '@angular/router'
 import { AppGlobals } from '../global/appGlobals'
 import { EmployeeService } from '../employee/employee.service'
-import { AlertService } from '../alert/alert.service'
+import { AlertService } from '../alert/alert.service';
+import { ToastOptions, ToastyService } from 'ng2-toasty';
 
 @Component({
     moduleId: module.id,
@@ -14,8 +15,8 @@ export class LoginComponent {
     private userName: string;
     private password: string;
 
-    constructor(private _router: Router, private _appGlobals: AppGlobals, private _activatedRoute: ActivatedRoute,
-        private _employeeService: EmployeeService, private _alertService: AlertService) { }
+    constructor(private _router: Router, private _appGlobal: AppGlobals, private _activatedRoute: ActivatedRoute,
+        private _employeeService: EmployeeService, private _toastyService: ToastyService) { }
 
     onSubmit() {
         this._employeeService.login(this.userName, this.password).subscribe((response) => {
@@ -25,12 +26,14 @@ export class LoginComponent {
                 let url: string = this._activatedRoute.snapshot.queryParams['returnUrl'];
                 this._router.navigate([url ? url : '/home/about/books']);
             }
-            else {
-                this._alertService.error("Invalid Username or Password!");
+            else {                
+                this._toastyService.error(this._appGlobal.getErrorToast("Invalid Username or Password!"));
+                //this._toastyService.error("Invalid Username or Password!");
             }
         },
-            (error) => {
-                this._alertService.error("Something went wrong! Please try again later.");
+            (error) => {                
+                this._toastyService.error(this._appGlobal.getFailureToast());
+                //this._toastyService.error("Something went wrong! Please try again later.");
             })
     }
 

@@ -14,32 +14,34 @@ var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 // Import the map operator
 require("rxjs/add/operator/map");
+var appGlobals_1 = require("../global/appGlobals");
 var BookService = /** @class */ (function () {
-    function BookService(_http) {
+    function BookService(_http, _appGlobal) {
         this._http = _http;
+        this._appGlobal = _appGlobal;
     }
     BookService.prototype.getBooks = function () {
-        return this._http.get('http://localhost:57445/api/books/GetBooks')
+        return this._http.get(this._appGlobal.baseUrl + '/api/books/GetBooks')
             .map(function (response) { return response.json(); });
     };
     BookService.prototype.getUsers = function () {
-        return this._http.get('http://localhost:57445/api/books/GetUsers')
+        return this._http.get(this._appGlobal.baseUrl + '/api/books/GetUsers')
             .map(function (response) { return response.json(); });
     };
     BookService.prototype.getCategories = function () {
-        return this._http.get('http://localhost:57445/api/books/GetCategories')
+        return this._http.get(this._appGlobal.baseUrl + '/api/books/GetCategories')
             .map(function (response) { return response.json(); });
     };
     BookService.prototype.getShelfs = function (id) {
-        return this._http.get('http://localhost:57445/api/books/GetShelfs/' + id)
+        return this._http.get(this._appGlobal.baseUrl + '/api/books/GetShelfs/' + id)
             .map(function (response) { return response.json(); });
     };
     BookService.prototype.getShelfsByCategory = function (category) {
-        return this._http.get('http://localhost:57445/api/books/GetShelfsByCategory/' + category)
+        return this._http.get(this._appGlobal.baseUrl + '/api/books/GetShelfsByCategory/' + category)
             .map(function (response) { return response.json(); });
     };
     BookService.prototype.getIssuedBooks = function () {
-        return this._http.get('http://localhost:57445/api/books/GetIssuedBooks')
+        return this._http.get(this._appGlobal.baseUrl + '/api/books/GetIssuedBooks')
             .map(function (response) { return response.json(); });
     };
     BookService.prototype.bookIssue = function (bookId, userId, book) {
@@ -48,7 +50,7 @@ var BookService = /** @class */ (function () {
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/json');
         var options = new http_1.RequestOptions({ headers: headers });
-        return this._http.post('http://localhost:57445/api/books/BookIssue', body, options)
+        return this._http.post(this._appGlobal.baseUrl + '/api/books/BookIssue', body, options)
             .map(function (response) { return response.json(); });
     };
     BookService.prototype.addNewbook = function (newBook, category, shelf) {
@@ -57,7 +59,7 @@ var BookService = /** @class */ (function () {
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/json');
         var options = new http_1.RequestOptions({ headers: headers });
-        return this._http.post('http://localhost:57445/api/books/AddNewBook', body, options)
+        return this._http.post(this._appGlobal.baseUrl + '/api/books/AddNewBook', body, options)
             .map(function (response) { return response.json(); });
     };
     BookService.prototype.addNewShelf = function (category, shelfCapacity) {
@@ -66,12 +68,12 @@ var BookService = /** @class */ (function () {
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/json');
         var options = new http_1.RequestOptions({ headers: headers });
-        return this._http.post('http://localhost:57445/api/books/AddNewShelf', body, options)
+        return this._http.post(this._appGlobal.baseUrl + '/api/books/AddNewShelf', body, options)
             .map(function (response) { return response.json(); });
     };
     BookService = __decorate([
         core_1.Injectable(),
-        __metadata("design:paramtypes", [http_1.Http])
+        __metadata("design:paramtypes", [http_1.Http, appGlobals_1.AppGlobals])
     ], BookService);
     return BookService;
 }());

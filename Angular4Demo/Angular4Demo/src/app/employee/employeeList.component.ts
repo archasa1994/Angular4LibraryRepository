@@ -4,7 +4,9 @@ import { EmployeeService } from './employee.service';
 import { UserPreferencesService } from './userPreferences.service';
 import { Router } from '@angular/router';
 import { SpinnerService } from '../spinner/spinner.service';
-import { AlertService } from '../alert/alert.service'
+import { AlertService } from '../alert/alert.service';
+import { ToastOptions, ToastyService } from 'ng2-toasty';
+import { AppGlobals } from '../global/appGlobals'
 
 @Component({
     selector: 'list-employee',
@@ -28,7 +30,7 @@ export class EmployeeListComponent implements OnInit {
     // EmployeeService singelton instance is then available
     // throughout this class
     constructor(private _employeeService: EmployeeService, private _userPreferencesService: UserPreferencesService,
-        private _router: Router, private _spinnerService: SpinnerService, private _alertService: AlertService) {
+        private _router: Router, private _spinnerService: SpinnerService, private _toastyService: ToastyService, private _appGlobal: AppGlobals) {
     }
 
     // In ngOnInit() life cycle hook call the getEmployees()
@@ -95,19 +97,22 @@ export class EmployeeListComponent implements OnInit {
             this._employeeService.deleteEmployee(empCode.code)
                 .subscribe((result) => {
                     if (result == true) {
-                        this._spinnerService.hide();
-                        this._alertService.success('Employee deleted successfully.')
+                        this._spinnerService.hide();                        
+                        this._toastyService.success(this._appGlobal.getSuccessToast("Employee deleted successfully!"));
+                        //this._toastyService.success('Employee deleted successfully.')
                         this.ngOnInit();
                         //this._router.navigate(['/home/employees']);
                     }
                     else {
-                        this._spinnerService.hide();
-                        this._alertService.error('Employee deletion failed!');
+                        this._spinnerService.hide();                        
+                        this._toastyService.error(this._appGlobal.getErrorToast("Employee deletion failed!"));
+                        //this._toastyService.error('Employee deletion failed!');
                     }
                 },
                 (error) => {
-                    this._spinnerService.hide();
-                    this._alertService.error('Problem with the service. Please try again after sometime');
+                    this._spinnerService.hide();                    
+                    this._toastyService.error(this._appGlobal.getFailureToast());
+                    //this._toastyService.error('Problem with the service. Please try again after sometime');
                 });
         }
         else {

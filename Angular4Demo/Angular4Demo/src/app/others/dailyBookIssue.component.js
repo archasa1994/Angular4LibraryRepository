@@ -12,12 +12,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var book_service_1 = require("./book.service");
 var router_1 = require("@angular/router");
-var alert_service_1 = require("../alert/alert.service");
+var ng2_toasty_1 = require("ng2-toasty");
+var appGlobals_1 = require("../global/appGlobals");
 var DailyBookIssueComponent = /** @class */ (function () {
-    function DailyBookIssueComponent(_bookService, _router, _alertService) {
+    function DailyBookIssueComponent(_bookService, _router, _toastyService, _appGlobal) {
         this._bookService = _bookService;
         this._router = _router;
-        this._alertService = _alertService;
+        this._toastyService = _toastyService;
+        this._appGlobal = _appGlobal;
         this.isSubmitted = false;
     }
     DailyBookIssueComponent.prototype.ngOnInit = function () {
@@ -56,16 +58,18 @@ var DailyBookIssueComponent = /** @class */ (function () {
         }
         this._bookService.bookIssue(bookId, userId, book).subscribe(function (response) {
             if (response) {
-                _this._alertService.success('Book Issued successfully!');
+                _this._toastyService.success(_this._appGlobal.getSuccessToast("Book Issued successfully!"));
                 _this.ngOnInit();
                 //window.location.reload();
             }
             else {
-                _this._alertService.error('Failed to issue book!');
+                _this._toastyService.error(_this._appGlobal.getErrorToast("Failed to Issue Book!"));
+                //this._toastyService.error('Failed to issue book!');
                 //alert('Error in service. Please try again later.')
             }
         }, function (error) {
-            _this._alertService.error('Something went wrong. Please try again later!');
+            _this._toastyService.error(_this._appGlobal.getFailureToast());
+            //this._toastyService.error('Something went wrong. Please try again later!');
             //alert('Error in service. Please try again later.')
         });
     };
@@ -74,7 +78,7 @@ var DailyBookIssueComponent = /** @class */ (function () {
             templateUrl: 'app/others/dailyBookIssue.component.html',
             styleUrls: ['app/others/dailyBookIssue.component.css']
         }),
-        __metadata("design:paramtypes", [book_service_1.BookService, router_1.Router, alert_service_1.AlertService])
+        __metadata("design:paramtypes", [book_service_1.BookService, router_1.Router, ng2_toasty_1.ToastyService, appGlobals_1.AppGlobals])
     ], DailyBookIssueComponent);
     return DailyBookIssueComponent;
 }());

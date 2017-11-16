@@ -14,16 +14,18 @@ var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 // Import the map operator
 require("rxjs/add/operator/map");
+var appGlobals_1 = require("../global/appGlobals");
 var UserService = /** @class */ (function () {
-    function UserService(_http) {
+    function UserService(_http, _appGlobal) {
         this._http = _http;
+        this._appGlobal = _appGlobal;
     }
     UserService.prototype.getUsers = function () {
-        return this._http.get('http://localhost:57445/api/users/GetUsers')
+        return this._http.get(this._appGlobal.baseUrl + '/api/users/GetUsers')
             .map(function (response) { return response.json(); });
     };
     UserService.prototype.getUserDetailsById = function (id) {
-        return this._http.get('http://localhost:57445/api/users/GetUserDetailsById/' + id)
+        return this._http.get(this._appGlobal.baseUrl + '/api/users/GetUserDetailsById/' + id)
             .map(function (response) { return response.json(); });
     };
     UserService.prototype.addNewUser = function (user) {
@@ -32,12 +34,12 @@ var UserService = /** @class */ (function () {
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/json');
         var options = new http_1.RequestOptions({ headers: headers });
-        return this._http.post('http://localhost:57445/api/users/AddNewUser', body, options)
+        return this._http.post(this._appGlobal.baseUrl + '/api/users/AddNewUser', body, options)
             .map(function (response) { return response.json(); });
     };
     UserService = __decorate([
         core_1.Injectable(),
-        __metadata("design:paramtypes", [http_1.Http])
+        __metadata("design:paramtypes", [http_1.Http, appGlobals_1.AppGlobals])
     ], UserService);
     return UserService;
 }());

@@ -12,12 +12,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var book_service_1 = require("./book.service");
 var router_1 = require("@angular/router");
-var alert_service_1 = require("../alert/alert.service");
+var ng2_toasty_1 = require("ng2-toasty");
+var appGlobals_1 = require("../global/appGlobals");
 var AddNewBookComponent = /** @class */ (function () {
-    function AddNewBookComponent(_bookService, _router, _alertService) {
+    function AddNewBookComponent(_bookService, _router, _toastyService, _appGlobal) {
         this._bookService = _bookService;
         this._router = _router;
-        this._alertService = _alertService;
+        this._toastyService = _toastyService;
+        this._appGlobal = _appGlobal;
         this.isSubmitted = false;
     }
     AddNewBookComponent.prototype.ngOnInit = function () {
@@ -47,15 +49,18 @@ var AddNewBookComponent = /** @class */ (function () {
         }
         this._bookService.addNewbook(newBook, category, shelf).subscribe(function (result) {
             if (result) {
-                _this._alertService.success('Book added successfully!', true);
+                _this._toastyService.success(_this._appGlobal.getSuccessToast("Book added successfully!"));
+                //this._toastyService.success('Book added successfully!');
                 _this._router.navigate(['home/about/books']);
             }
             else {
-                _this._alertService.error('Failed to add book!');
+                _this._toastyService.error(_this._appGlobal.getErrorToast("Failed to add Book!"));
+                //this._toastyService.error('Failed to add book!');
                 //alert('Something went wrong! Please try again later!');
             }
         }, function (error) {
-            _this._alertService.error('Something went wrong. Please try again later!');
+            _this._toastyService.error(_this._appGlobal.getFailureToast());
+            //this._toastyService.error('Something went wrong. Please try again later!')
             //alert('Something went wrong! Please try again later!');
         });
     };
@@ -63,7 +68,7 @@ var AddNewBookComponent = /** @class */ (function () {
         core_1.Component({
             templateUrl: 'app/others/addNewBook.component.html'
         }),
-        __metadata("design:paramtypes", [book_service_1.BookService, router_1.Router, alert_service_1.AlertService])
+        __metadata("design:paramtypes", [book_service_1.BookService, router_1.Router, ng2_toasty_1.ToastyService, appGlobals_1.AppGlobals])
     ], AddNewBookComponent);
     return AddNewBookComponent;
 }());

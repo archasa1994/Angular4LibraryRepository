@@ -14,18 +14,20 @@ var employee_service_1 = require("./employee.service");
 var userPreferences_service_1 = require("./userPreferences.service");
 var router_1 = require("@angular/router");
 var spinner_service_1 = require("../spinner/spinner.service");
-var alert_service_1 = require("../alert/alert.service");
+var ng2_toasty_1 = require("ng2-toasty");
+var appGlobals_1 = require("../global/appGlobals");
 var EmployeeListComponent = /** @class */ (function () {
     // Inject EmployeeService using the constructor
     // The private variable _employeeService which points to
     // EmployeeService singelton instance is then available
     // throughout this class
-    function EmployeeListComponent(_employeeService, _userPreferencesService, _router, _spinnerService, _alertService) {
+    function EmployeeListComponent(_employeeService, _userPreferencesService, _router, _spinnerService, _toastyService, _appGlobal) {
         this._employeeService = _employeeService;
         this._userPreferencesService = _userPreferencesService;
         this._router = _router;
         this._spinnerService = _spinnerService;
-        this._alertService = _alertService;
+        this._toastyService = _toastyService;
+        this._appGlobal = _appGlobal;
         this.statusMessage = 'Loading data. Please wait...';
         this.isAddNewEmployee = false;
         // This property keeps track of which radio button is selected
@@ -93,17 +95,20 @@ var EmployeeListComponent = /** @class */ (function () {
                 .subscribe(function (result) {
                 if (result == true) {
                     _this._spinnerService.hide();
-                    _this._alertService.success('Employee deleted successfully.');
+                    _this._toastyService.success(_this._appGlobal.getSuccessToast("Employee deleted successfully!"));
+                    //this._toastyService.success('Employee deleted successfully.')
                     _this.ngOnInit();
                     //this._router.navigate(['/home/employees']);
                 }
                 else {
                     _this._spinnerService.hide();
-                    _this._alertService.error('Employee deletion failed!');
+                    _this._toastyService.error(_this._appGlobal.getErrorToast("Employee deletion failed!"));
+                    //this._toastyService.error('Employee deletion failed!');
                 }
             }, function (error) {
                 _this._spinnerService.hide();
-                _this._alertService.error('Problem with the service. Please try again after sometime');
+                _this._toastyService.error(_this._appGlobal.getFailureToast());
+                //this._toastyService.error('Problem with the service. Please try again after sometime');
             });
         }
         else {
@@ -117,7 +122,7 @@ var EmployeeListComponent = /** @class */ (function () {
             styleUrls: ['app/employee/employeeList.component.css']
         }),
         __metadata("design:paramtypes", [employee_service_1.EmployeeService, userPreferences_service_1.UserPreferencesService,
-            router_1.Router, spinner_service_1.SpinnerService, alert_service_1.AlertService])
+            router_1.Router, spinner_service_1.SpinnerService, ng2_toasty_1.ToastyService, appGlobals_1.AppGlobals])
     ], EmployeeListComponent);
     return EmployeeListComponent;
 }());

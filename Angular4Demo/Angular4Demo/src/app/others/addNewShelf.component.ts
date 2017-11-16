@@ -2,6 +2,8 @@
 import { Router, ActivatedRoute } from '@angular/router'
 import { BookService } from './book.service'
 import { AlertService } from '../alert/alert.service'
+import { ToastOptions, ToastyService } from 'ng2-toasty'
+import { AppGlobals } from '../global/appGlobals'
 
 @Component({
     selector: 'add-shelf',
@@ -13,7 +15,8 @@ export class AddNewShelfComponent {
     shelfCapacity: number;
     isSubmitted: boolean = false;
 
-    constructor(private _bookService: BookService, private _router: Router, private _route: ActivatedRoute, private _alertService: AlertService) { }
+    constructor(private _bookService: BookService, private _router: Router, private _route: ActivatedRoute,
+        private _toastyService: ToastyService, private _appGlobal: AppGlobals) { }
 
     @Output()
     newShelfAdded: EventEmitter<string> = new EventEmitter<string>();
@@ -32,13 +35,15 @@ export class AddNewShelfComponent {
             return;
         }
         this._bookService.addNewShelf(category, this.shelfCapacity).subscribe((result) => {
-            this.newShelfAdded.emit('success');
-            this._alertService.success('Shelf added successfully!');
+            this.newShelfAdded.emit('success');            
+            this._toastyService.success(this._appGlobal.getSuccessToast("Shelf added successfully!"));        
+            //this._toastyService.success('Shelf added successfully!');
             //window.location.reload();            
             //this._router.navigate(["home/about/shelfs"]);           
         },
             (error) => {
-                this._alertService.error('Something went wrong. Please try again later!');
+                this._toastyService.error(this._appGlobal.getFailureToast());
+                //this._toastyService.error('Something went wrong. Please try again later!');
                 //alert('Something went wrong! Please try again later!');
             });
     }

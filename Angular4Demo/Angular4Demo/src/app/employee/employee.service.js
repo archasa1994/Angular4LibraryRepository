@@ -18,24 +18,26 @@ var Observable_1 = require("rxjs/Observable");
 require("rxjs/add/operator/map");
 require("rxjs/add/operator/catch");
 require("rxjs/add/Observable/throw");
+var appGlobals_1 = require("../global/appGlobals");
 // The @Injectable() decorator is used to inject other dependencies
 // into this service. As our service does not have any dependencies
 // at the moment, we may remove the @Injectable() decorator and the
 // service works exactly the same way. However, Angular recomends
 // to always use @Injectable() decorator to ensures consistency
 var EmployeeService = /** @class */ (function () {
-    function EmployeeService(_http) {
+    function EmployeeService(_http, _appGlobal) {
         this._http = _http;
+        this._appGlobal = _appGlobal;
     }
     EmployeeService.prototype.getEmployees = function () {
         // To convert Observable<Response> to Observable<IEmployee[]>
         // we are using the map operator
-        return this._http.get('http://localhost:57445/api/employees/Get')
+        return this._http.get(this._appGlobal.baseUrl + '/api/employees/Get')
             .map(function (response) { return response.json(); });
         //.catch(this.handleError);
     };
     EmployeeService.prototype.getEmployeeByCode = function (empCode) {
-        return this._http.get('http://localhost:57445/api/employees/Get/' + empCode)
+        return this._http.get(this._appGlobal.baseUrl + '/api/employees/Get/' + empCode)
             .map(function (response) { return response.json(); });
     };
     EmployeeService.prototype.handleError = function (error) {
@@ -48,7 +50,7 @@ var EmployeeService = /** @class */ (function () {
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/json');
         var options = new http_1.RequestOptions({ headers: headers });
-        return this._http.post('http://localhost:57445/api/employees/Post', body, options)
+        return this._http.post(this._appGlobal.baseUrl + '/api/employees/Post', body, options)
             .map(function (response) { return response.json(); });
     };
     EmployeeService.prototype.deleteEmployee = function (empCode) {
@@ -56,7 +58,7 @@ var EmployeeService = /** @class */ (function () {
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/json');
         var options = new http_1.RequestOptions({ headers: headers });
-        return this._http.post('http://localhost:57445/api/employees/DeleteEmployee', data, options)
+        return this._http.post(this._appGlobal.baseUrl + '/api/employees/DeleteEmployee', data, options)
             .map(function (response) { return response.json(); });
     };
     EmployeeService.prototype.addNewEmployee = function (name, password, gender, salary, dob) {
@@ -65,7 +67,7 @@ var EmployeeService = /** @class */ (function () {
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/json');
         var options = new http_1.RequestOptions({ headers: headers });
-        return this._http.post('http://localhost:57445/api/employees/AddNewEmployee', data, options)
+        return this._http.post(this._appGlobal.baseUrl + '/api/employees/AddNewEmployee', data, options)
             .map(function (response) { return response.json(); });
     };
     EmployeeService.prototype.login = function (name, password) {
@@ -74,12 +76,12 @@ var EmployeeService = /** @class */ (function () {
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/json');
         var options = new http_1.RequestOptions({ headers: headers });
-        return this._http.post('http://localhost:57445/api/employees/Login', data, options)
+        return this._http.post(this._appGlobal.baseUrl + '/api/employees/Login', data, options)
             .map(function (response) { return response.json(); });
     };
     EmployeeService = __decorate([
         core_1.Injectable(),
-        __metadata("design:paramtypes", [http_1.Http])
+        __metadata("design:paramtypes", [http_1.Http, appGlobals_1.AppGlobals])
     ], EmployeeService);
     return EmployeeService;
 }());
