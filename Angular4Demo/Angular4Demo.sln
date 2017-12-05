@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Employee.DAL", "Employee.DA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessEntities", "BusinessEntities\BusinessEntities.csproj", "{5C0F767E-4EF9-495C-BDDC-E7396A9F98FD}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Employee.Database", "Employee.Database\Employee.Database.sqlproj", "{5FCC147D-CA96-4A99-ADDA-09559DC5B157}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,12 @@ Global
 		{5C0F767E-4EF9-495C-BDDC-E7396A9F98FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C0F767E-4EF9-495C-BDDC-E7396A9F98FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5C0F767E-4EF9-495C-BDDC-E7396A9F98FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5FCC147D-CA96-4A99-ADDA-09559DC5B157}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FCC147D-CA96-4A99-ADDA-09559DC5B157}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FCC147D-CA96-4A99-ADDA-09559DC5B157}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{5FCC147D-CA96-4A99-ADDA-09559DC5B157}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FCC147D-CA96-4A99-ADDA-09559DC5B157}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5FCC147D-CA96-4A99-ADDA-09559DC5B157}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
